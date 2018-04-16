@@ -1,5 +1,5 @@
 from entity import Session, engine, Base
-from inventory import Inventory
+from inventory import Inventory, History
 
 Base.metadata.create_all(engine)
 session = Session()
@@ -10,6 +10,10 @@ def get_inventory():
 
 def add_inventory(make, model, year, color):
     new_inv = Inventory(make, model, year, True, color)
+    new_inv.history = [
+        History(history_type='New car added'),
+        History(history_type='Car crashed')
+    ]
     session.add(new_inv)
     session.commit()
 
